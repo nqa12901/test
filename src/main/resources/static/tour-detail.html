@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết lịch trình tour</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container mt-4">
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-map-marked-alt me-2 text-primary"></i>Lịch trình tour</h2>
+    <button class="btn btn-outline-secondary" onclick="goBack()">
+      <i class="fas fa-arrow-left me-1"></i>Quay lại
+    </button>
+  </div>
+
+
+  <!-- POI List -->
+  <div id="poiList" class="d-none">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">
+          <i class="fas fa-route me-2"></i>
+          Danh sách điểm tham quan (<span id="count">0</span> điểm)
+        </h5>
+      </div>
+      <div class="card-body p-0" id="poiContainer">
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty -->
+  <div id="empty" class="text-center py-5 d-none">
+    <i class="fas fa-map-pin text-muted" style="font-size: 3rem;"></i>
+    <h4 class="mt-3">Chưa có lịch trình</h4>
+    <p class="text-muted">Tour này chưa có điểm tham quan nào.</p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="tour-detail.js"></script>
+</body>
+</html>
