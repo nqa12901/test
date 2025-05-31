@@ -10,14 +10,12 @@ import com.javaweb.repository.TourRepository;
 import com.javaweb.repository.entity.PoiEntity;
 import com.javaweb.service.PoiService;
 import com.javaweb.service.TourService;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @RestController
 public class NewAPI {
@@ -131,7 +129,35 @@ public class NewAPI {
         }
     }
 
+    @PostMapping(value="api/onepoi")
+    public void savepoi(@RequestBody PoiDTO poiDTO) {
+        poiService.saveorupdate(poiDTO);
+    }
+    @GetMapping("api/onepoi/{id}")
+    public PoiDTO getPoiById(@PathVariable int id) {
+        // Tìm POI entity từ database
+        Optional<PoiEntity> poiEntityOpt = poiRepository.findById(id);
 
+        if (poiEntityOpt.isPresent()) {
+            PoiEntity poiEntity = poiEntityOpt.get();
+
+            // Tạo DTO và map data từ entity
+            PoiDTO poiDTO = new PoiDTO();
+            poiDTO.setId(poiEntity.getId());
+            poiDTO.setName(poiEntity.getName());
+            poiDTO.setAddress(poiEntity.getAddress());
+            poiDTO.setDescription(poiEntity.getDescription());
+            poiDTO.setPrice(poiEntity.getPrice());
+            poiDTO.setOpenTime(poiEntity.getOpenTime());
+            poiDTO.setCloseTime(poiEntity.getCloseTime());
+            poiDTO.setTypename(poiEntity.getTypename());
+            poiDTO.setImageUrl(poiEntity.getImageUrl());
+
+            return poiDTO;
+        } else {
+            throw new RuntimeException("POI not found with id: " + id);
+        }
+    }
 
 
 

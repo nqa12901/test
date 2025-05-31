@@ -54,6 +54,27 @@ public class PoiServiceImpl implements PoiService {
             tourPoiRepository.save(tourpoi);
         }
     }
+    @Override
+    public void saveorupdate(PoiDTO poiDTO) {
+        PoiEntity poiEntity;
+        if (poiDTO.getId() != null) {
+            poiEntity = poiRepository.findById(poiDTO.getId()).orElse(new PoiEntity());
+        } else {
+            poiEntity = new PoiEntity();
+        }
+        poiEntity.setAddress(poiDTO.getAddress());
+        poiEntity.setDescription(poiDTO.getDescription());
+        poiEntity.setName(poiDTO.getName());
+        poiEntity.setPrice(poiDTO.getPrice());
+        poiEntity.setCloseTime(poiDTO.getCloseTime());
+        poiEntity.setOpenTime(poiDTO.getOpenTime());
+        poiEntity.setTypename(poiDTO.getTypename());
+        poiEntity.setImageUrl(poiDTO.getImageUrl());
+
+
+
+        poiRepository.save(poiEntity);
+    }
 
 
 

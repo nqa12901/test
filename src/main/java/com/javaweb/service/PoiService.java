@@ -10,4 +10,5 @@ public interface PoiService {
     List<ListPoiDTO> getPoisByTourId(int id);
     PoiDTO findById(int id);
     void assignPoisToTour(TourPoiRequestDTO tourPoiRequestDTO );
+    void saveorupdate(PoiDTO poiDTO);
 }

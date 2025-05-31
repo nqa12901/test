@@ -54,9 +54,14 @@ function renderPois() {
                         <span class="badge bg-primary rounded-pill px-3">${poi.typename || 'Chưa phân loại'}</span>
                     </div>
                     <div class="position-absolute top-0 end-0 m-2">
-                        <button class="btn btn-danger btn-sm rounded-circle" onclick="deletePoi(${poi.id})" title="Xóa POI">
-                            <i class="fas fa-trash"></i>
-                        </button>
+                        <div class="d-flex gap-1">
+                            <button class="btn btn-warning btn-sm rounded-circle" onclick="editPoi(${poi.id})" title="Chỉnh sửa POI">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm rounded-circle" onclick="deletePoi(${poi.id})" title="Xóa POI">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body d-flex flex-column">
@@ -83,6 +88,11 @@ function renderPois() {
 
     document.getElementById('poiContainer').innerHTML = html;
     document.getElementById('totalCount').textContent = filteredPois.length;
+}
+
+// Thêm function editPoi
+function editPoi(id) {
+    window.location.href = `edit-poi.html?poiId=${id}`;
 }
 
 // Actions
@@ -154,8 +164,8 @@ async function filterPois() {
     }
 }
 
-function goBack() {
-    window.history.back();
+function goBack1() {
+    window.location.href = 'http://localhost:8082/index.html';
 }
 
 // Start

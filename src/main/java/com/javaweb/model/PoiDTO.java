@@ -1,7 +1,7 @@
 package com.javaweb.model;
 
 public class PoiDTO {
-    private int id;
+    private Integer id;
     private String name;
     private String typename;
     private String address;
@@ -10,7 +10,9 @@ public class PoiDTO {
     private String openTime;
     private String closeTime;
     private Integer price;
-    public PoiDTO(int id, String name, String typename, String address,
+    public PoiDTO() {
+    }
+    public PoiDTO(Integer id, String name, String typename, String address,
                   String description, String imageUrl, String openTime,
                   String closeTime, Integer price) {
         this.id = id;
@@ -24,11 +26,11 @@ public class PoiDTO {
         this.price = price;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
