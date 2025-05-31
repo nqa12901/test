@@ -58,6 +58,10 @@ public class NewAPI {
     public void deletepoioftour(@PathVariable int id){
         tourPoiRepository.deleteById(id);
     }
+    @DeleteMapping(value="api/onepoi/{id}")
+    public void deleteonepoi(@PathVariable int id){
+        poiRepository.deleteById(id);
+    }
 
 
 

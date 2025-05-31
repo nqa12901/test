@@ -93,17 +93,18 @@ function viewDetail(id) {
 
 
 async function deletePoi(id) {
-    const poi = allPois.find(p => p.id === id);
+    const poi = filteredPois.find(p => p.id === id); // Sửa từ allPois thành filteredPois
     if (!confirm(`Xóa "${poi.name}"?`)) return;
 
     try {
-        const response = await fetch(`http://localhost:8082/api/poi/${id}`, {
+        // Sửa endpoint để khớp với backend
+        const response = await fetch(`http://localhost:8082/api/onepoi/${id}`, {
             method: 'DELETE'
         });
 
         if (response.ok) {
             alert('Xóa thành công!');
-            loadAllPois();
+            loadAllPois(); // Reload lại danh sách
         } else {
             alert('Lỗi xóa!');
         }
