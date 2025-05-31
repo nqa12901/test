@@ -46,7 +46,7 @@ public class NewAPI {
 
     @DeleteMapping(value="api/tour/{id}")
     public void delete(@PathVariable int id){
-        tourRepository.deleteById(id);
+        tourRepository.deleteTourById(id);
     }
 
     @DeleteMapping(value = "api/poioftour/{id}")

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,5 +64,21 @@ public class TourRepositoryImpl implements TourRepositoryCustom {
         query.select(root).where(cb.and(predicates.toArray(new Predicate[0]))).distinct(true);
         return entityManager.createQuery(query).getResultList();
     }
+    @Override
+    @Transactional
+    public void deleteTourById(Integer id) {
+        // Xóa liên kết bảng phụ
+        entityManager.createQuery("DELETE FROM TourTypeTourEntity ttt WHERE ttt.tour.id = :id")
+                .setParameter("id", id).executeUpdate();
+        entityManager.createQuery("DELETE FROM TourPoiEntity tp WHERE tp.tour.id = :id")
+                .setParameter("id", id).executeUpdate();
+
+        // Sau đó mới xóa tour
+        TourEntity tour = entityManager.find(TourEntity.class, id);
+        if (tour != null) {
+            entityManager.remove(tour);
+        }
+    }
+
 
 }

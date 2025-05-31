@@ -12,5 +12,7 @@ import java.util.List;
 public interface TourRepository extends JpaRepository<TourEntity,Integer> , TourRepositoryCustom {
     @Transactional
     List<TourEntity> findAll(TourSearchBuilder tourSearchBuilder);
+    @Transactional
+    void deleteTourById(int id);
 
 }

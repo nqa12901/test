@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TourRepositoryCustom {
     List<TourEntity> findAll(TourSearchBuilder tourSearchBuilder);
+    void deleteTourById(Integer id);
 }

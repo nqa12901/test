@@ -408,6 +408,30 @@ function showLoading(show) {
 }
 
 // Mock data for fallback
+function deleteTour(id) {
+    if (!confirm("Bạn có chắc chắn muốn xóa tour này?")) return;
+
+    fetch(`http://localhost:8082/api/tour/${id}`, {
+        method: 'DELETE'
+    })
+        .then(response => {
+            if (response.ok) {
+                alert("Xóa tour thành công!");
+
+                // Xóa khỏi mảng hiện tại
+                tours = tours.filter(t => t.id !== id);
+                filteredTours = filteredTours.filter(t => t.id !== id);
+                displayTours(filteredTours);
+            } else {
+                alert("Lỗi khi xóa tour!");
+            }
+        })
+        .catch(error => {
+            console.error("Lỗi khi kết nối server:", error);
+            alert("Xảy ra lỗi khi xóa tour!");
+        });
+}
+
 
 
 // Global functions for buttons

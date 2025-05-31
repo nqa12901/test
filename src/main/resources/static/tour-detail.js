@@ -104,6 +104,9 @@ async function deletePoi(index) {
 function goBack() {
     window.history.back();
 }
+function addNewPoi(){
+
+}
 
 // Khởi chạy
 document.addEventListener('DOMContentLoaded', loadPOIs);
