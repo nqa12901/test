@@ -8,6 +8,7 @@ import com.javaweb.repository.PoiRepository;
 import com.javaweb.repository.TourPoiRepository;
 import com.javaweb.repository.TourRepository;
 import com.javaweb.repository.entity.PoiEntity;
+import com.javaweb.repository.entity.TourEntity;
 import com.javaweb.service.PoiService;
 import com.javaweb.service.TourService;
 import org.aspectj.lang.annotation.Pointcut;
@@ -72,6 +73,7 @@ public class NewAPI {
     public void assignPoisToTour(@RequestBody TourPoiRequestDTO tourPoiRequestDTO) {
         poiService.assignPoisToTour(tourPoiRequestDTO);
     }
+
     @RestController
     @RequestMapping("/api/poi")
     public class PoiController {
@@ -133,6 +135,7 @@ public class NewAPI {
     public void savepoi(@RequestBody PoiDTO poiDTO) {
         poiService.saveorupdate(poiDTO);
     }
+
     @GetMapping("api/onepoi/{id}")
     public PoiDTO getPoiById(@PathVariable int id) {
         // Tìm POI entity từ database
@@ -156,6 +159,31 @@ public class NewAPI {
             return poiDTO;
         } else {
             throw new RuntimeException("POI not found with id: " + id);
+        }
+    }
+
+    @GetMapping(value="api/tour/{id}")  // Sửa "apl" thành "api"
+    public TourDTO getTourById(@PathVariable int id) {
+        // Tìm Tour entity từ database
+        Optional<TourEntity> tourEntityOpt = tourRepository.findById(id); // Sửa tên biến
+
+        if (tourEntityOpt.isPresent()) {
+            TourEntity tourEntity = tourEntityOpt.get(); // Sửa conflict tên biến
+
+            // Tạo TourDTO và map data từ entity
+            TourDTO tourDTO = new TourDTO(); // Sửa thành TourDTO thay vì PoiDTO
+            tourDTO.setId(tourEntity.getId());
+            tourDTO.setName(tourEntity.getName());
+            tourDTO.setAddress(tourEntity.getAddress());
+            tourDTO.setDescription(tourEntity.getDescription());
+            tourDTO.setPrice(tourEntity.getPrice());
+            tourDTO.setDuration(tourEntity.getDuration()); // Thêm duration cho Tour
+            tourDTO.setRating(tourEntity.getRating());     // Thêm rating cho Tour
+            tourDTO.setImageUrl(tourEntity.getImageUrl());
+
+            return tourDTO;
+        } else {
+            throw new RuntimeException("Tour not found with id: " + id);
         }
     }
 

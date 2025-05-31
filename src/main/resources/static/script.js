@@ -388,7 +388,9 @@ function viewTourDetail(tourId) {
     window.location.href = `tour-detail.html?tourId=${tourId}`;
 }
 
-
+function editTour(id) {
+    window.location.href = `edit-tour.html?tourId=${id}`;
+}
 // Utility functions
 function formatPrice(price) {
     return new Intl.NumberFormat('vi-VN').format(price) + ' VNĐ';
