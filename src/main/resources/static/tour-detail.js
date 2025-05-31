@@ -104,9 +104,16 @@ async function deletePoi(index) {
 function goBack() {
     window.history.back();
 }
-function addNewPoi(){
+function addNewPoi() {
+    // Lấy tourId từ URL (giống như getTourId())
+    const tourId = getTourId(); // Dùng function đã có sẵn
 
+    if (!tourId) {
+        alert('Không tìm thấy Tour ID!');
+        return;
+    }
+
+    window.location.href = `assign-poi.html?tourId=${tourId}`;
 }
-
 // Khởi chạy
 document.addEventListener('DOMContentLoaded', loadPOIs);
