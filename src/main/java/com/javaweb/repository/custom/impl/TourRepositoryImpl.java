@@ -55,11 +55,30 @@ public class TourRepositoryImpl implements TourRepositoryCustom {
 
         if (builder.getDurations() != null && !builder.getDurations().isEmpty()) {
             List<Predicate> durationPredicates = new ArrayList<>();
+
             for (String duration : builder.getDurations()) {
-                durationPredicates.add(cb.like(cb.lower(root.get("duration")), "%" + duration.toLowerCase() + "%"));
+                switch (duration) {
+                    case "1 ngày":
+                        durationPredicates.add(cb.equal(root.get("duration"), "1"));
+                        break;
+                    case "2 ngày":
+                        durationPredicates.add(cb.equal(root.get("duration"), "2"));
+                        break;
+                    case "3 ngày":
+                        durationPredicates.add(cb.equal(root.get("duration"), "3"));
+                        break;
+                    case "Hơn 3 ngày":
+                        durationPredicates.add(cb.gt(cb.toInteger(root.get("duration")), 3));
+                        break;
+                }
             }
-            predicates.add(cb.or(durationPredicates.toArray(new Predicate[0])));
+
+            if (!durationPredicates.isEmpty()) {
+                predicates.add(cb.or(durationPredicates.toArray(new Predicate[0])));
+            }
         }
+
+
 
         query.select(root).where(cb.and(predicates.toArray(new Predicate[0]))).distinct(true);
         return entityManager.createQuery(query).getResultList();

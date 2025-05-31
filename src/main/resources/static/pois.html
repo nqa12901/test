@@ -6,24 +6,184 @@
     <title>Danh sách POI - WeGo!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        .poi-card:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .poi-image { height: 180px; object-fit: cover; }
-    </style>
+  <style>
+
+      /* POI Header Styles */
+      .poi-header {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          padding: 1.5rem 0;
+          box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .poi-header-content {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      .poi-header-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 1rem;
+      }
+
+      .poi-header-left {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+      }
+
+      .poi-header-title {
+          color: white;
+          margin: 0;
+          font-size: 1.75rem;
+          font-weight: 600;
+      }
+
+      /* Base Button Styles for POI Header */
+      .poi-header .btn {
+          padding: 8px 16px;
+          border-radius: 6px;
+          border: none;
+          font-size: 14px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 80px;
+          gap: 0.5rem;
+      }
+
+      /* Back Button */
+      .poi-back-btn {
+          background: rgba(255, 255, 255, 0.2);
+          color: white;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          padding: 10px 12px;
+          min-width: auto;
+      }
+
+      .poi-back-btn:hover {
+          background: rgba(255, 255, 255, 0.3);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+          color: white;
+      }
+
+      .poi-back-btn:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
+      }
+
+      /* Add Button (Primary Style) */
+      .poi-add-btn {
+          background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+          color: white;
+          box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+      }
+
+      .poi-add-btn:hover {
+          background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+          color: white;
+      }
+
+      .poi-add-btn:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
+      }
+
+      /* Animation Classes */
+      .poi-animate-left {
+          animation: slideInLeft 0.6s ease-out;
+      }
+
+      .poi-animate-right {
+          animation: slideInRight 0.6s ease-out;
+      }
+
+      @keyframes slideInLeft {
+          from {
+              opacity: 0;
+              transform: translateX(-30px);
+          }
+          to {
+              opacity: 1;
+              transform: translateX(0);
+          }
+      }
+
+      @keyframes slideInRight {
+          from {
+              opacity: 0;
+              transform: translateX(30px);
+          }
+          to {
+              opacity: 1;
+              transform: translateX(0);
+          }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+          .poi-header {
+              padding: 1rem 0;
+          }
+
+          .poi-header-content {
+              flex-direction: column;
+              gap: 1rem;
+              align-items: stretch;
+          }
+
+          .poi-header-left {
+              justify-content: center;
+          }
+
+          .poi-header-title {
+              font-size: 1.5rem;
+          }
+
+          .poi-add-btn {
+              width: 100%;
+              justify-content: center;
+          }
+      }
+
+      @media (max-width: 576px) {
+          .poi-header-title {
+              font-size: 1.25rem;
+          }
+
+          .poi-header .btn {
+              font-size: 13px;
+              padding: 6px 12px;
+          }
+      }
+  </style>
 </head>
 <body>
 <!-- Header -->
-<header class="bg-primary text-white py-3">
-    <div class="container d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-            <button class="btn btn-outline-light me-3" onclick="goBack1()">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h1 class="h4 mb-0">Danh sách địa điểm</h1>
+<header class="poi-header text-white">
+    <div class="container">
+        <div class="poi-header-content poi-header-container">
+            <div class="poi-header-left poi-animate-left">
+                <button class="btn btn-outline-light poi-back-btn" onclick="goBack1()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="poi-header-title">Danh sách địa điểm</h1>
+            </div>
+            <div class="poi-animate-right">
+                <button class="btn poi-add-btn" onclick="addNewPoi()">
+                    <i class="fas fa-plus"></i>
+                    Thêm địa điểm
+                </button>
+            </div>
         </div>
-        <button class="btn btn-success" onclick="addNewPoi()">
-            <i class="fas fa-plus"></i> Thêm địa điểm
-        </button>
     </div>
 </header>
 
@@ -74,3 +234,155 @@
 <script src="pois.js"></script>
 </body>
 </html>
+<style>
+    /* POI Image Container - FIXED HEIGHT */
+    .poi-image-container {
+        height: 250px;
+        overflow: hidden;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        position: relative;
+    }
+
+    /* POI Image - FIXED DIMENSIONS */
+    .poi-image {
+        width: 100%;
+        height: 250px !important;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.3s ease;
+        display: block;
+    }
+
+    .poi-image:hover {
+        transform: scale(1.05);
+    }
+
+    /* No Image Placeholder - SAME FIXED HEIGHT */
+    .poi-no-image {
+        width: 100%;
+        height: 250px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        color: #6c757d;
+        font-size: 1rem;
+        gap: 10px;
+    }
+
+    .poi-no-image i {
+        font-size: 3rem;
+        opacity: 0.5;
+    }
+
+    .poi-no-image span {
+        font-weight: 500;
+        opacity: 0.7;
+    }
+
+    /* Image Overlay */
+    .poi-image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.3) 0%,
+                rgba(0, 0, 0, 0) 30%,
+                rgba(0, 0, 0, 0) 70%,
+                rgba(0, 0, 0, 0.2) 100%
+        );
+        pointer-events: none;
+    }
+
+    /* Action Buttons */
+    .poi-action-btn {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.9) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .poi-action-btn:hover {
+        transform: scale(1.1);
+        /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);*/
+    }
+
+    .poi-action-btn.btn-warning {
+        color: #D8A200 !important;
+    }
+
+    .poi-action-btn.btn-danger {
+        color: #DD3B4A !important;
+    }
+
+    /* POI Card */
+    .poi-card {
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .poi-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    /* Badge */
+    .poi-card .badge {
+        font-size: 0.75rem;
+        font-weight: 500;
+        backdrop-filter: blur(10px);
+        background: rgba(13, 110, 253, 0.9) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Detail Button */
+    .btn-detail {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+        border: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-detail:hover {
+        background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+        color: white;
+    }
+
+    .btn-detail:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .poi-image-container,
+        .poi-image,
+        .poi-no-image {
+            height: 200px !important;
+        }
+
+        .poi-action-btn {
+            width: 32px;
+            height: 32px;
+        }
+
+        .poi-no-image i {
+            font-size: 2.5rem;
+        }
+    }
+</style>

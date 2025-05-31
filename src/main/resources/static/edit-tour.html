@@ -9,17 +9,18 @@
 </head>
 <body>
 <!-- Header -->
-<header class="bg-success text-white py-3">
-    <div class="container d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-            <button class="btn btn-outline-light me-3" onclick="goBack()">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h1 class="h4 mb-0">Chỉnh sửa Tour</h1>
+<header class="tour-edit-header text-white">
+    <div class="container">
+        <div class="tour-edit-header-content tour-edit-header-container">
+            <div class="tour-edit-header-left tour-animate-left">
+                <button class="btn tour-back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="tour-edit-header-title">Chỉnh sửa Tour</h1>
+            </div>
         </div>
     </div>
 </header>
-
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-lg-8">
@@ -106,3 +107,181 @@
 <script src="edit-tour.js"></script>
 </body>
 </html>
+<style>
+    /* Tour Edit Header Styles */
+    .tour-edit-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 1.5rem 0;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .tour-edit-header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .tour-edit-header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .tour-edit-header-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .tour-edit-header-title {
+        color: white;
+        margin: 0;
+        font-size: 1.75rem;
+        font-weight: 600;
+    }
+
+    /* Base Button Styles for Tour Edit Header */
+    .tour-edit-header .btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        border: none;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 80px;
+        gap: 0.5rem;
+    }
+
+    /* Back Button */
+    .tour-back-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 10px 12px;
+        min-width: auto;
+    }
+
+    .tour-back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+        color: white;
+    }
+
+    .tour-back-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Save Button (Primary Style) */
+    .tour-save-btn {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+    }
+
+    .tour-save-btn:hover {
+        background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+        color: white;
+    }
+
+    .tour-save-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
+    }
+
+    /* Preview Button (Secondary Style) */
+    .tour-preview-btn {
+        background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+    }
+
+    .tour-preview-btn:hover {
+        background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+        color: white;
+    }
+
+    .tour-preview-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+    }
+
+    /* Animation Classes */
+    .tour-animate-left {
+        animation: slideInLeft 0.6s ease-out;
+    }
+
+    .tour-animate-right {
+        animation: slideInRight 0.6s ease-out;
+    }
+
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .tour-edit-header {
+            padding: 1rem 0;
+        }
+
+        .tour-edit-header-content {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: stretch;
+        }
+
+        .tour-edit-header-left {
+            justify-content: center;
+        }
+
+        .tour-edit-header-title {
+            font-size: 1.5rem;
+        }
+
+        .tour-save-btn,
+        .tour-preview-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .tour-edit-header-title {
+            font-size: 1.25rem;
+        }
+
+        .tour-edit-header .btn {
+            font-size: 13px;
+            padding: 6px 12px;
+        }
+    }
+</style>
