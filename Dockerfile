@@ -23,5 +23,5 @@ COPY --from=builder /app/target/*.jar app.jar
 # Mở port 8080 (Railway sẽ tự động map port)
 EXPOSE 8080
 
-# Chạy ứng dụng
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Chạy ứng dụng với profile production
+ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=prod"]
