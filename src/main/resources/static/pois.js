@@ -98,12 +98,7 @@ function renderPois() {
                         <p class="card-text text-secondary flex-grow-1 mb-3">
                             ${(poi.description || 'Chưa có mô tả').substring(0, 100)}${poi.description && poi.description.length > 100 ? '...' : ''}
                         </p>
-                        <div class="mt-auto">
-                            <button class="btn btn-detail w-100" onclick="viewPoiDetail(${poi.id})">
-                                <i class="fas fa-eye me-2"></i>
-                                Xem chi tiết
-                            </button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -120,9 +115,7 @@ function editPoi(id) {
 }
 
 // Actions
-function viewDetail(id) {
-    window.location.href = `poi-detail.html?poiId=${id}`;
-}
+
 
 
 
