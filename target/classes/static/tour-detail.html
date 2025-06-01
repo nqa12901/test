@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết lịch trình tour</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>/* Tour Schedule Header Styles */
+  .tour-schedule-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 1.5rem 0;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .tour-schedule-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tour-schedule-header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .tour-schedule-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .tour-schedule-header-title {
+    color: white;
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tour-schedule-header-title i {
+    color: #ffd700;
+    font-size: 1.5rem;
+  }
+
+  /* Base Button Styles for Tour Schedule Header */
+  .tour-schedule-header .btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+    gap: 0.5rem;
+  }
+
+  /* Back Button */
+  .tour-schedule-back-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 16px;
+    min-width: auto;
+  }
+
+  .tour-schedule-back-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+
+  .tour-schedule-back-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
+  }
+
+  /* Animation Classes */
+  .tour-schedule-animate-left {
+    animation: slideInLeft 0.6s ease-out;
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .tour-schedule-header {
+      padding: 1rem 0;
+    }
+
+    .tour-schedule-header-left {
+      justify-content: center;
+    }
+
+    .tour-schedule-header-title {
+      font-size: 1.5rem;
+    }
+
+    .tour-schedule-header-title i {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .tour-schedule-header-title {
+      font-size: 1.25rem;
+    }
+
+    .tour-schedule-header .btn {
+      font-size: 13px;
+      padding: 6px 12px;
+    }
+  }</style>
+</head>
+<body>
+<div class="container mt-4">
+  <!-- Header -->
+  <header class="tour-schedule-header text-white">
+    <div class="container">
+      <div class="tour-schedule-header-content tour-schedule-header-container">
+        <div class="tour-schedule-header-left tour-schedule-animate-left">
+          <button class="btn tour-schedule-back-btn" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i>
+            Quay lại
+          </button>
+          <h1 class="tour-schedule-header-title">
+            <i class="fas fa-map-marked-alt"></i>
+            Lịch trình tour
+          </h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- POI List -->
+  <div id="poiList" class="d-none">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">
+          <i class="fas fa-route me-2"></i>
+          Danh sách điểm tham quan (<span id="count">0</span> điểm)
+        </h5>
+      </div>
+      <div class="card-body p-0" id="poiContainer">
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty -->
+  <div id="empty" class="text-center py-5 d-none">
+    <i class="fas fa-map-pin text-muted" style="font-size: 3rem;"></i>
+    <h4 class="mt-3">Chưa có lịch trình</h4>
+    <p class="text-muted">Tour này chưa có điểm tham quan nào.</p>
+    <div class="d-flex justify-content-center p-3">
+      <button class="btn btn-primary" onclick="addNewPoi()">
+        <i class="fas fa-plus me-2"></i>Thêm địa điểm
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="tour-detail.js"></script>
+</body>
+</html>

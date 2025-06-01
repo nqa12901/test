@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa Tour - WeGo!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<!-- Header -->
+<header class="tour-edit-header text-white">
+    <div class="container">
+        <div class="tour-edit-header-content tour-edit-header-container">
+            <div class="tour-edit-header-left tour-animate-left">
+                <button class="btn tour-back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="tour-edit-header-title">Chỉnh sửa Tour</h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <!-- Loading spinner -->
+                    <div id="loadingSpinner" class="text-center py-5">
+                        <div class="spinner-border text-success" role="status">
+                            <span class="visually-hidden">Đang tải...</span>
+                        </div>
+                        <p class="mt-2">Đang tải thông tin tour...</p>
+                    </div>
+
+                    <!-- Tour form -->
+                    <form id="tourForm" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Tên Tour <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Thời gian (ngày) <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="duration" min="1" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Địa chỉ/Điểm khởi hành</label>
+                            <input type="text" class="form-control" id="address">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Giá Tour (VND)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">VND</span>
+                                    <input type="number" class="form-control" id="price" min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Đánh giá (1-5 sao)</label>
+                                <select class="form-select" id="rating">
+                                    <option value="">Chọn đánh giá</option>
+                                    <option value="1">1 sao</option>
+                                    <option value="2">2 sao</option>
+                                    <option value="3">3 sao</option>
+                                    <option value="4">4 sao</option>
+                                    <option value="5">5 sao</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">URL Hình ảnh</label>
+                            <input type="url" class="form-control" id="imageUrl" placeholder="https://example.com/image.jpg">
+                            <div id="imagePreview" class="mt-2"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Mô tả Tour</label>
+                            <textarea class="form-control" id="description" rows="4" placeholder="Mô tả chi tiết về tour..."></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-secondary" onclick="goBack()">Hủy</button>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save me-1"></i>Cập nhật Tour
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Error message -->
+                    <div id="errorMessage" class="alert alert-danger" style="display: none;">
+                        <h5>Lỗi tải dữ liệu!</h5>
+                        <p>Không thể tải thông tin tour. Vui lòng thử lại sau.</p>
+                        <button class="btn btn-outline-danger" onclick="goBack()">Quay lại</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="edit-tour.js"></script>
+</body>
+</html>
+<style>
+    /* Tour Edit Header Styles */
+    .tour-edit-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 1.5rem 0;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .tour-edit-header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .tour-edit-header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .tour-edit-header-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .tour-edit-header-title {
+        color: white;
+        margin: 0;
+        font-size: 1.75rem;
+        font-weight: 600;
+    }
+
+    /* Base Button Styles for Tour Edit Header */
+    .tour-edit-header .btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        border: none;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 80px;
+        gap: 0.5rem;
+    }
+
+    /* Back Button */
+    .tour-back-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 10px 12px;
+        min-width: auto;
+    }
+
+    .tour-back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+        color: white;
+    }
+
+    .tour-back-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Save Button (Primary Style) */
+    .tour-save-btn {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+    }
+
+    .tour-save-btn:hover {
+        background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+        color: white;
+    }
+
+    .tour-save-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
+    }
+
+    /* Preview Button (Secondary Style) */
+    .tour-preview-btn {
+        background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+        color: white;
+        box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+    }
+
+    .tour-preview-btn:hover {
+        background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+        color: white;
+    }
+
+    .tour-preview-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+    }
+
+    /* Animation Classes */
+    .tour-animate-left {
+        animation: slideInLeft 0.6s ease-out;
+    }
+
+    .tour-animate-right {
+        animation: slideInRight 0.6s ease-out;
+    }
+
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .tour-edit-header {
+            padding: 1rem 0;
+        }
+
+        .tour-edit-header-content {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: stretch;
+        }
+
+        .tour-edit-header-left {
+            justify-content: center;
+        }
+
+        .tour-edit-header-title {
+            font-size: 1.5rem;
+        }
+
+        .tour-save-btn,
+        .tour-preview-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .tour-edit-header-title {
+            font-size: 1.25rem;
+        }
+
+        .tour-edit-header .btn {
+            font-size: 13px;
+            padding: 6px 12px;
+        }
+    }
+</style>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeGo!</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- HEADER SECTION - NGẮN GỌN -->
+<header class="app-header">
+  <div class="container">
+    <div class="header-content d-flex justify-content-between align-items-center">
+
+      <!-- Logo -->
+      <div class="app-brand d-flex align-items-center">
+        <div class="brand-icon">
+          <i class="fas fa-plane"></i>
+        </div>
+        <div class="brand-info ms-2">
+          <h1 class="app-name mb-0">WeGo!</h1>
+          <p class="app-slogan mb-0">Cùng bạn đi xa</p>
+        </div>
+      </div>
+
+      <!-- Nút chức năng -->
+      <div class="header-buttons">
+        <a href="add-tour.html" class="btn btn-primary me-2">
+          <i class="fas fa-plus me-1"></i> Thêm Tour
+        </a>
+        <a href="pois.html" class="btn btn-outline-light">
+          <i class="fas fa-map-marker-alt me-1"></i> Danh sách địa điểm
+        </a>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+
+
+<!-- SEARCH SECTION - CHỈ 5 FIELD -->
+<section class="search-section">
+  <div class="container">
+    <div class="search-card">
+      <h2 class="search-title">
+        <i class="fas fa-search me-2"></i>Tìm Kiếm Tour Du Lịch
+      </h2>
+
+      <div class="search-form">
+        <div class="row g-3">
+          <!-- 1. LOẠI TOUR -->
+          <div class="col-md-6">
+            <div class="search-group">
+              <label class="search-label">
+                <i class="fas fa-map-marked-alt"></i>
+                Loại tour
+              </label>
+              <select class="form-select search-input" id="typetour">
+                <option value="">Tất cả loại tour</option>
+                <option value="Thám Hiểm">Thám Hiểm</option>
+                <option value="Văn Hóa">Văn Hóa</option>
+                <option value="Nghỉ Dưỡng">Nghỉ Dưỡng</option>
+                <option value="Ẩm Thực">Ẩm Thực</option>
+                <option value="Lịch Sử">Lịch Sử</option>
+                <option value="Biển Đảo">Biển Đảo</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 2. ĐỊA ĐIỂM -->
+          <div class="col-md-6">
+            <div class="search-group">
+              <label class="search-label">
+                <i class="fas fa-map-marker-alt"></i>
+                Địa điểm
+              </label>
+              <input type="text"
+                     class="form-control search-input"
+                     id="address"
+                     placeholder="VD: Hà Nội, Đà Nẵng, Huế...">
+            </div>
+          </div>
+
+          <!-- 3. GIÁ TỐI ĐA -->
+          <div class="col-md-6">
+            <div class="search-group">
+              <label class="search-label">
+                <i class="fas fa-money-bill-wave"></i>
+                Giá tối đa
+              </label>
+              <input type="number"
+                     class="form-control search-input"
+                     id="maxPrice"
+                     placeholder="VD: 5000000">
+            </div>
+          </div>
+
+          <!-- 4. ĐÁNH GIÁ -->
+          <div class="col-md-6">
+            <div class="search-group">
+              <label class="search-label">
+                <i class="fas fa-star"></i>
+                Đánh giá tối thiểu
+              </label>
+              <div class="star-rating">
+                <button type="button" class="star-btn" data-rating="1">
+                  <i class="fas fa-star"></i>
+                </button>
+                <button type="button" class="star-btn" data-rating="2">
+                  <i class="fas fa-star"></i>
+                </button>
+                <button type="button" class="star-btn" data-rating="3">
+                  <i class="fas fa-star"></i>
+                </button>
+                <button type="button" class="star-btn" data-rating="4">
+                  <i class="fas fa-star"></i>
+                </button>
+                <button type="button" class="star-btn" data-rating="5">
+                  <i class="fas fa-star"></i>
+                </button>
+                <span class="rating-text" id="ratingText">Chọn đánh giá</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. THỜI GIAN TOUR -->
+          <div class="col-12">
+            <div class="search-group">
+              <label class="search-label">
+                <i class="fas fa-clock"></i>
+                Thời gian tour
+              </label>
+              <div class="duration-buttons" id="durationGroup">
+                <button type="button" class="duration-btn" data-duration="1 ngày">
+                  1 ngày
+                </button>
+                <button type="button" class="duration-btn" data-duration="2 ngày">
+                  2 ngày
+                </button>
+                <button type="button" class="duration-btn" data-duration="3 ngày">
+                  3ngày
+                </button>
+                <button type="button" class="duration-btn" data-duration="Hơn 3 ngày">
+                  Hơn 3 ngày
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="col-12">
+            <div class="search-actions">
+              <button class="btn btn-primary search-btn" onclick="performSearch()">
+                <i class="fas fa-search me-2"></i>
+                Tìm kiếm tour
+              </button>
+              <button class="btn btn-outline-secondary clear-btn" onclick="clearAllFilters()">
+                <i class="fas fa-refresh me-2"></i>
+                Xóa bộ lọc
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS SECTION -->
+<section class="results-section">
+  <div class="container">
+    <!-- Results Header -->
+    <div class="results-header">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h3 class="results-title">
+            Kết quả tìm kiếm (<span id="resultsCount">0</span> tour)
+          </h3>
+        </div>
+        <div class="col-md-6">
+          <div class="sort-section">
+            <label>Sắp xếp theo:</label>
+            <select class="form-select sort-select" id="sortBy">
+              <option value="newest">Mới nhất</option>
+              <option value="price-low">Giá thấp → cao</option>
+              <option value="price-high">Giá cao → thấp</option>
+              <option value="rating">Đánh giá cao nhất</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading -->
+<!--    <div id="loadingState" class="loading-state" style="display: none;">-->
+<!--      <div class="loading-content">-->
+<!--        <div class="spinner-border text-primary" role="status"></div>-->
+<!--        <p>Đang tìm kiếm tours...</p>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <!-- Tours List -->
+    <div id="toursList" class="tours-list">
+      <!-- Tours được load bằng JavaScript -->
+    </div>
+
+    <!-- No Results -->
+    <div id="noResults" class="no-results" style="display: none;">
+      <div class="no-results-content">
+        <i class="fas fa-search no-results-icon"></i>
+        <h4>Không tìm thấy tour phù hợp</h4>
+        <p>Hãy thử thay đổi bộ lọc tìm kiếm</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
+<script src="script.js"></script>
+</body>
+</html>
