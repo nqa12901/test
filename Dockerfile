@@ -20,8 +20,8 @@ WORKDIR /app
 # Copy file jar từ stage builder sang
 COPY --from=builder /app/target/*.jar app.jar
 
-# Mở port dựa trên biến môi trường PORT hoặc mặc định 8080
-EXPOSE ${PORT:-8080}
+# Mở port 8080 (Railway sẽ tự động map port)
+EXPOSE 8080
 
-# Chạy ứng dụng với cấu hình linh hoạt
-ENTRYPOINT ["java", "-Dserver.port=${PORT:-8080}", "-jar", "app.jar"]
+# Chạy ứng dụng
+ENTRYPOINT ["java", "-jar", "app.jar"]
